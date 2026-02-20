@@ -1,95 +1,124 @@
-import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import contactImg from "../assets/contact-img.svg";
-import 'animate.css';
-import TrackVisibility from 'react-on-screen';
+import "animate.css";
+import TrackVisibility from "react-on-screen";
+
+import navIcon1 from "../assets/nav-icon1.svg"; // LinkedIn icon
+import navIcon2 from "../assets/nav-icon2.svg"; // Facebook icon (or whatever you used)
+import navIcon3 from "../assets/nav-icon3.svg"; // Instagram icon (or whatever you used)
 
 export const Contact = () => {
-  const formInitialDetails = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    message: ''
-  }
-  const [formDetails, setFormDetails] = useState(formInitialDetails);
-  const [buttonText, setButtonText] = useState('Send');
-  const [status, setStatus] = useState({});
-
-  const onFormUpdate = (category, value) => {
-      setFormDetails({
-        ...formDetails,
-        [category]: value
-      })
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setButtonText("Sending...");
-    let response = await fetch("http://localhost:5000/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(formDetails),
-    });
-    setButtonText("Send");
-    let result = await response.json();
-    setFormDetails(formInitialDetails);
-    if (result.code == 200) {
-      setStatus({ succes: true, message: 'Message sent successfully'});
-    } else {
-      setStatus({ succes: false, message: 'Something went wrong, please try again later.'});
-    }
-  };
+  const links = [
+    {
+      name: "LinkedIn",
+      username: "YOUR_LINKEDIN_USERNAME",
+      href: "https://www.linkedin.com/in/YOUR_LINKEDIN_USERNAME/",
+      icon: navIcon1,
+    },
+    {
+      name: "GitHub",
+      username: "Harsh3923",
+      href: "https://github.com/Harsh3923",
+      icon: navIcon2, // if navIcon2 isn't GitHub, swap it with your GitHub icon
+    },
+    {
+      name: "Instagram",
+      username: "YOUR_INSTAGRAM_USERNAME",
+      href: "https://instagram.com/YOUR_INSTAGRAM_USERNAME",
+      icon: navIcon3,
+    },
+  ];
 
   return (
     <section className="contact" id="connect">
       <Container>
         <Row className="align-items-center">
-          <Col size={12} md={6}>
+          <Col xs={12}>
             <TrackVisibility>
-              {({ isVisible }) =>
-                <img className={isVisible ? "animate__animated animate__zoomIn" : ""} src={contactImg} alt="Contact Us"/>
-              }
-            </TrackVisibility>
-          </Col>
-          <Col size={12} md={6}>
-            <TrackVisibility>
-              {({ isVisible }) =>
+              {({ isVisible }) => (
                 <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-                <h2>Get In Touch</h2>
-                <form onSubmit={handleSubmit}>
-                  <Row>
-                    <Col size={12} sm={6} className="px-1">
-                      <input type="text" value={formDetails.firstName} placeholder="First Name" onChange={(e) => onFormUpdate('firstName', e.target.value)} />
-                    </Col>
-                    <Col size={12} sm={6} className="px-1">
-                      <input type="text" value={formDetails.lasttName} placeholder="Last Name" onChange={(e) => onFormUpdate('lastName', e.target.value)}/>
-                    </Col>
-                    <Col size={12} sm={6} className="px-1">
-                      <input type="email" value={formDetails.email} placeholder="Email Address" onChange={(e) => onFormUpdate('email', e.target.value)} />
-                    </Col>
-                    <Col size={12} sm={6} className="px-1">
-                      <input type="tel" value={formDetails.phone} placeholder="Phone No." onChange={(e) => onFormUpdate('phone', e.target.value)}/>
-                    </Col>
-                    <Col size={12} className="px-1">
-                      <textarea rows="6" value={formDetails.message} placeholder="Message" onChange={(e) => onFormUpdate('message', e.target.value)}></textarea>
-                      <button type="submit"><span>{buttonText}</span></button>
-                    </Col>
-                    {
-                      status.message &&
-                      <Col>
-                        <p className={status.success === false ? "danger" : "success"}>{status.message}</p>
-                      </Col>
-                    }
-                  </Row>
-                </form>
-              </div>}
+                  <h2 style={{ marginBottom: 12 }}>Get In Touch</h2>
+                  <p style={{ opacity: 0.85, maxWidth: 720 }}>
+                    Want to collaborate, hire, or just talk ideas at the intersection of{" "}
+                    <strong>code</strong> and <strong>culture</strong>? Find me here:
+                  </p>
+
+                  <div
+                    style={{
+                      marginTop: 28,
+                      display: "grid",
+                      gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+                      gap: 16,
+                    }}
+                  >
+                    {links.map((l) => (
+                      <a
+                        key={l.name}
+                        href={l.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="contact-card"
+                        title={`@${l.username}`}  // 👈 hover tooltip
+                        style={{
+                          textDecoration: "none",
+                          borderRadius: 18,
+                          padding: 18,
+                          border: "1px solid rgba(255,255,255,0.18)",
+                          background: "rgba(255,255,255,0.06)",
+                          backdropFilter: "blur(10px)",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 14,
+                          transition: "transform 0.15s ease, background 0.15s ease, border 0.15s ease",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = "translateY(-3px)";
+                          e.currentTarget.style.background = "rgba(255,255,255,0.09)";
+                          e.currentTarget.style.border = "1px solid rgba(255,255,255,0.28)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = "translateY(0px)";
+                          e.currentTarget.style.background = "rgba(255,255,255,0.06)";
+                          e.currentTarget.style.border = "1px solid rgba(255,255,255,0.18)";
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 46,
+                            height: 46,
+                            borderRadius: 14,
+                            display: "grid",
+                            placeItems: "center",
+                            background: "rgba(128, 90, 213, 0.25)",
+                            border: "1px solid rgba(128, 90, 213, 0.35)",
+                          }}
+                        >
+                          <img src={l.icon} alt={l.name} style={{ width: 22, height: 22 }} />
+                        </div>
+
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                          <span style={{ fontWeight: 700, color: "#fff" }}>{l.name}</span>
+                          <span style={{ opacity: 0.75, color: "#fff" }}>@{l.username}</span>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+
+                  <div style={{ marginTop: 22, opacity: 0.75 }}>
+                    Prefer email?{" "}
+                    <a
+                      href="mailto:hp.harsh2356@gmail.com"
+                      style={{ color: "#fff", textDecoration: "underline" }}
+                      title="hp.harsh2356@gmail.com"
+                    >
+                      hp.harsh2356@gmail.com
+                    </a>
+                  </div>
+                </div>
+              )}
             </TrackVisibility>
           </Col>
         </Row>
       </Container>
     </section>
-  )
-}
+  );
+};
