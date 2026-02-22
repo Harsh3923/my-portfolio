@@ -11,8 +11,8 @@ export const Contact = () => {
   const links = [
     {
       name: "LinkedIn",
-      username: "YOUR_LINKEDIN_USERNAME",
-      href: "https://www.linkedin.com/in/YOUR_LINKEDIN_USERNAME/",
+      username: "Harsh Patel",
+      href: "https://www.linkedin.com/in/harsh-patel-74a060368/",
       icon: navIcon1,
     },
     {
@@ -23,8 +23,8 @@ export const Contact = () => {
     },
     {
       name: "Instagram",
-      username: "YOUR_INSTAGRAM_USERNAME",
-      href: "https://instagram.com/YOUR_INSTAGRAM_USERNAME",
+      username: "arshh_patel",
+      href: "https://www.instagram.com/arshh_patel/",
       icon: navIcon3,
     },
   ];
