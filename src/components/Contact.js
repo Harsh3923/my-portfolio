@@ -5,6 +5,7 @@ import TrackVisibility from "react-on-screen";
 import navIcon1 from "../assets/nav-icon1.svg"; // LinkedIn icon
 import navIcon2 from "../assets/nav-icon2.svg"; // Facebook icon (or whatever you used)
 import navIcon3 from "../assets/nav-icon3.svg"; // Instagram icon (or whatever you used)
+import githubicon from "../assets/github_icon.svg";
 
 export const Contact = () => {
   const links = [
@@ -18,7 +19,7 @@ export const Contact = () => {
       name: "GitHub",
       username: "Harsh3923",
       href: "https://github.com/Harsh3923",
-      icon: navIcon2, // if navIcon2 isn't GitHub, swap it with your GitHub icon
+      icon: githubicon, 
     },
     {
       name: "Instagram",
